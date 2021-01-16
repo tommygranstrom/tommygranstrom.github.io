@@ -6,25 +6,27 @@
 <h1>Traffic Routing</h1>
 <div>
     <text>Travel from</text>
-    <input type="text" id = "start" value = "134" placeholder="idxId">
-</div>
-<div>
+    <input type="text" id = "start" value = "Norrkoping Centralstation" onchange="checkDestinations()" placeholder="idxId">
     <text>Travel to</text>
-    <input type="text" id = "end" value = "140" placeholder="idxId">
-</div>
-<div>
-    <text>Date to travel</text>
-    <input type="text" id = "goDate" value = "20200816" placeholder="YYYYMMDD">
+    <input type="text" id = "end" value = "Linkoping Centralstation" onchange="checkDestinations()" placeholder="idxId">
 </div>
 <div>
     <text>Earliest departure</text>
-    <input type="text" id = "goTime" value = "06:00:00" placeholder="HH:MM:SS">
-</div>
-<div>
+    <input type="text" id = "goTime" value = "06:00:00" onchange="checkTravelSpecs()" placeholder="HH:MM:SS">
     <text>Latest Arrival</text>
-    <input type="text" id = "arrTime" value = "15:00:00" placeholder="HH:MM:SS">
+    <input type="text" id = "arrTime" value = "10:00:00" onchange="checkTravelSpecs()" placeholder="HH:MM:SS">
 </div>
 <div>
+    <text>Earliest go home</text>
+    <input type="text" id = "goBackTime" value = "16:00:00" onchange="checkTravelSpecs()" placeholder="HH:MM:SS">
+    <text>Latest back home</text>
+    <input type="text" id = "arrTimeHome" value = "20:00:00" onchange="checkTravelSpecs()" placeholder="HH:MM:SS">
+</div>
+
+
+<div>
+    <text>Date to travel</text>
+    <input type="text" id = "goDate" value = "20200816" placeholder="YYYYMMDD">
     <text>Maximum number of tripchanges</text>
     <input type="text" id = "maxTrc" value = "10">
 </div>
@@ -34,13 +36,19 @@
 <div>
     <textarea id="specsoutPutField" cols="60" rows="2"></textarea>
 </div>
-    
+
 <div>
-    <textarea id="outPutField" cols="30" rows="10"></textarea>
+    <h3>Out going alternatives</h3>
+    <textarea id="outPutField" cols="60" rows="10"></textarea>
+</div>
+<div>
+    <h3>Going home alternatives</h3>
+    <textarea id="outPutFieldH" cols="60" rows="10"></textarea>
 </div>
 <script src = "data.js"></script>
 <script src = "service_Id.js"></script>
 <script src = "stopsData.js"></script>
+<script src = "autoList.js"></script>
 <script src = "routingEngineJs.js"></script>
 </body>
 </html>
