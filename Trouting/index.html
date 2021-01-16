@@ -1,0 +1,46 @@
+<html>
+<header>
+    
+</header>
+<body>
+<h1>Traffic Routing</h1>
+<div>
+    <text>Travel from</text>
+    <input type="text" id = "start" value = "134" placeholder="idxId">
+</div>
+<div>
+    <text>Travel to</text>
+    <input type="text" id = "end" value = "140" placeholder="idxId">
+</div>
+<div>
+    <text>Date to travel</text>
+    <input type="text" id = "goDate" value = "20200816" placeholder="YYYYMMDD">
+</div>
+<div>
+    <text>Earliest departure</text>
+    <input type="text" id = "goTime" value = "06:00:00" placeholder="HH:MM:SS">
+</div>
+<div>
+    <text>Latest Arrival</text>
+    <input type="text" id = "arrTime" value = "15:00:00" placeholder="HH:MM:SS">
+</div>
+<div>
+    <text>Maximum number of tripchanges</text>
+    <input type="text" id = "maxTrc" value = "10">
+</div>
+<div>
+    <button id = "searchButton" onclick="startSearching()">Search</button>
+</div>
+<div>
+    <textarea id="specsoutPutField" cols="60" rows="2"></textarea>
+</div>
+    
+<div>
+    <textarea id="outPutField" cols="30" rows="10"></textarea>
+</div>
+<script src = "data.js"></script>
+<script src = "service_Id.js"></script>
+<script src = "stopsData.js"></script>
+<script src = "routingEngineJs.js"></script>
+</body>
+</html>
