@@ -3,6 +3,8 @@ var destValid = true;
 var startNodeIdx = 7;
 var endNodeIdx = 9;
 
+var calcPats = new Array();
+
 
 class PathElement{
     constructor(node,aT,dT,trId,rId){
@@ -17,6 +19,20 @@ function appendToSpecs(val){
     document.getElementById("specsoutPutField").value = val;
 }
 
+function dispPath(ele){
+    if(0<calcPats.length){
+        var pathString = "";
+        pt = calcPats[ele];
+            for(var i = 0;i<pt.length;i++){
+                pathString = pathString + data[pt[i].node]['txtId'] + " "+pt[i].arrTime+" "+pt[i].depTime+"\n";
+            }
+        if(document.getElementById("pathinfo").value == pathString){
+            document.getElementById("pathinfo").value = "";
+        }else{
+            document.getElementById("pathinfo").value = pathString;
+        }
+    }
+}
 function autoFill(tmpIn){
     if(2<tmpIn.length){
         var i = 0;
@@ -241,8 +257,16 @@ class Graph{
 
 
 function startSearching(){
-    document.getElementById("outPutFieldH").value ="";
-    document.getElementById("outPutField").value ="";
+    //document.getElementById("outPutFieldH").value ="";
+    //document.getElementById("outPutField").value ="";
+    var pathIdx = 0;
+    calcPats = [];
+    while (document.getElementById("outgoing").firstChild) {
+        document.getElementById("outgoing").removeChild(document.getElementById("outgoing").lastChild);
+    }
+    while (document.getElementById("ingoing").firstChild) {
+        document.getElementById("ingoing").removeChild(document.getElementById("ingoing").lastChild);
+    }
     var g = new Graph();
     var g2 = new Graph();
     if(destValid==true){
@@ -258,30 +282,36 @@ function startSearching(){
             var maxnPaths = 200;
             g.allPaths(startNodeIdx,endNodeIdx,goDate,startGoTime,endGoTime,maxTransfers,maxnPaths)
             for(var j = 0;j<g.calculatedPaths.length;j++){
-                var pathString = "---\n"
-                pt = g.calculatedPaths[j];
-            for(var i = 0;i<pt.length;i++){
-                pathString = pathString + g.patReq[pt[i].node]['txtId'] + " "+pt[i].arrTime+" "+pt[i].depTime+"\n";
-            }
-            pathString = pathString + "---\n";
-            // console.log("---");
-            document.getElementById("outPutField").value += pathString;
+               var tmpDiv = document.createElement("div");
+               var tmpB = document.createElement("button");
+               pt = g.calculatedPaths[j];
+               calcPats.push(pt);
+               tmpB.value = pathIdx;
+               tmpB.onclick = function(){dispPath(this.value)};
+               pathIdx = pathIdx+1;
+               tmpB.innerHTML += g.patReq[pt[0].node]['txtId'] + " - " + g.patReq[pt[pt.length-1].node]['txtId']+"\n";
+               tmpB.innerHTML += pt[0].depTime + " - " + pt[pt.length-1].arrTime + "\n";
+               tmpDiv.appendChild(tmpB);
+               document.getElementById("outgoing").appendChild(tmpDiv);
             }
             g.calculatedPaths = [];
-            
+
             startGoTime = document.getElementById("goBackTime").value;
             endGoTime =  document.getElementById("arrTimeHome").value;
             g2.allPaths(endNodeIdx,startNodeIdx,goDate,startGoTime,endGoTime,maxTransfers,maxnPaths)
             for(var j = 0;j<g2.calculatedPaths.length;j++){
-                var pathString = "---\n"
-                pt = g2.calculatedPaths[j];
-            for(var i = 0;i<pt.length;i++){
-                pathString = pathString + g2.patReq[pt[i].node]['txtId'] + " "+pt[i].arrTime+" "+pt[i].depTime+"\n";
-            }
-            pathString = pathString + "---\n";
-            // console.log("---");
-            document.getElementById("outPutFieldH").value += pathString;
-            }
+                    var tmpDiv = document.createElement("div");
+                    var tmpB = document.createElement("button");
+                    pt = g2.calculatedPaths[j];
+                    calcPats.push(pt);
+                    tmpB.value = pathIdx;
+                    tmpB.onclick = function(){dispPath(this.value)};
+                    pathIdx = pathIdx+1;
+                    tmpB.innerHTML += g2.patReq[pt[0].node]['txtId'] + " - " + g2.patReq[pt[pt.length-1].node]['txtId']+"\n";
+                    tmpB.innerHTML += pt[0].depTime + " - " + pt[pt.length-1].arrTime + "\n";
+                    tmpDiv.appendChild(tmpB);
+                    document.getElementById("ingoing").appendChild(tmpDiv);   
+        }
             g2.calculatedPaths = [];
             appendToSpecs(g.foundPaths+" go there paths found\n" +g2.foundPaths+" go home paths found\n");
 
