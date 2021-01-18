@@ -1,35 +1,48 @@
 <html>
 <header>
-    
+    <link rel="stylesheet" href="main.css">
 </header>
 <body>
-<h1>Traffic Routing</h1>
-<div>
-    <text>Travel from</text>
+<h1 id = "webTitle">Traffic routing</h1>
+
+<div class = "tnodes">
+<div class = "liIt">
+    <label>Travel from:</label></br>
     <input type="text" id = "start" value = "Norrkoping Centralstation" onchange="checkDestinations()" placeholder="idxId">
-    <text>Travel to</text>
+</div>
+<div class = "liIt">
+    <label>Travel to:</label></br>
     <input type="text" id = "end" value = "Linkoping Centralstation" onchange="checkDestinations()" placeholder="idxId">
 </div>
-<div>
-    <text>Earliest departure</text>
-    <input type="text" id = "goTime" value = "06:00:00" onchange="checkTravelSpecs()" placeholder="HH:MM:SS">
-    <text>Latest Arrival</text>
-    <input type="text" id = "arrTime" value = "10:00:00" onchange="checkTravelSpecs()" placeholder="HH:MM:SS">
-</div>
-<div>
-    <text>Earliest go home</text>
-    <input type="text" id = "goBackTime" value = "16:00:00" onchange="checkTravelSpecs()" placeholder="HH:MM:SS">
-    <text>Latest back home</text>
-    <input type="text" id = "arrTimeHome" value = "20:00:00" onchange="checkTravelSpecs()" placeholder="HH:MM:SS">
-</div>
-
-
-<div>
-    <text>Date to travel</text>
+<div class = "liIt">
+    <label>Date to travel:</label>
     <input type="text" id = "goDate" value = "20200816" placeholder="YYYYMMDD">
-    <text>Maximum number of tripchanges</text>
-    <input type="text" id = "maxTrc" value = "10">
 </div>
+<div class = "liIt">
+    <label>Max transfers:</label></br>
+    <input type="text" id = "maxTrc" value = "10">    
+</div>
+</div></br>
+
+<div class = "tnodes">
+    <div class = "liIt">
+    <label>Earliest departure</label>
+    <input type="text" id = "goTime" value = "06:00:00" onchange="checkTravelSpecs()" placeholder="HH:MM:SS">
+    </div>
+    <div class = "liIt">
+    <label>Latest Arrival</label>
+    <input type="text" id = "arrTime" value = "10:00:00" onchange="checkTravelSpecs()" placeholder="HH:MM:SS">    
+    </div>
+    <div class = "liIt">
+    <label>Earliest go home</label>
+    <input type="text" id = "goBackTime" value = "16:00:00" onchange="checkTravelSpecs()" placeholder="HH:MM:SS">    
+    </div>
+    <div class = "liIt">
+    <label>Latest back home</label>
+    <input type="text" id = "arrTimeHome" value = "20:00:00" onchange="checkTravelSpecs()" placeholder="HH:MM:SS">
+    </div>
+</div>
+
 <div>
     <button id = "searchButton" onclick="startSearching()">Search</button>
 </div>
