@@ -284,6 +284,7 @@ function startSearching(){
             for(var j = 0;j<g.calculatedPaths.length;j++){
                var tmpDiv = document.createElement("div");
                var tmpB = document.createElement("button");
+               tmpB.className = "pathbutton";
                pt = g.calculatedPaths[j];
                calcPats.push(pt);
                tmpB.value = pathIdx;
@@ -302,6 +303,7 @@ function startSearching(){
             for(var j = 0;j<g2.calculatedPaths.length;j++){
                     var tmpDiv = document.createElement("div");
                     var tmpB = document.createElement("button");
+                    tmpB.className = "pathbutton";
                     pt = g2.calculatedPaths[j];
                     calcPats.push(pt);
                     tmpB.value = pathIdx;

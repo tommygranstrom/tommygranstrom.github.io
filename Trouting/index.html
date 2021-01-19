@@ -3,7 +3,9 @@
     <link rel="stylesheet" href="main.css">
 </header>
 <body>
+<div class ="head">
 <h1 id = "webTitle">Traffic routing</h1>
+</div>
 
 <div class = "tnodes">
 <div class = "liIt">
@@ -22,41 +24,50 @@
     <label>Max transfers:</label></br>
     <input type="text" id = "maxTrc" value = "10">    
 </div>
-</div></br>
+</div>
 
 <div class = "tnodes">
     <div class = "liIt">
-    <label>Earliest departure</label>
+    <label>Earliest departure:</label>
     <input type="text" id = "goTime" value = "06:00:00" onchange="checkTravelSpecs()" placeholder="HH:MM:SS">
     </div>
     <div class = "liIt">
-    <label>Latest Arrival</label>
+    <label>Latest Arrival:</label>
     <input type="text" id = "arrTime" value = "10:00:00" onchange="checkTravelSpecs()" placeholder="HH:MM:SS">    
     </div>
     <div class = "liIt">
-    <label>Earliest go home</label>
+    <label>Earliest go home:</label>
     <input type="text" id = "goBackTime" value = "16:00:00" onchange="checkTravelSpecs()" placeholder="HH:MM:SS">    
     </div>
     <div class = "liIt">
-    <label>Latest back home</label>
+    <label>Latest back home:</label>
     <input type="text" id = "arrTimeHome" value = "20:00:00" onchange="checkTravelSpecs()" placeholder="HH:MM:SS">
     </div>
 </div>
 
-<div>
-    <button id = "searchButton" onclick="startSearching()">Search</button>
-</div>
-<div>
-    <textarea id="specsoutPutField" cols="60" rows="2"></textarea>
+<div id = "searchSpecsfiels">
+<button id = "searchButton" onclick="startSearching()">Search</button>
+<textarea readonly id="specsoutPutField" cols="60" rows="2"></textarea>
 </div>
 
-<h3>Out going alternatives</h3>
-<div id = "outgoing">
+<div style="margin: 20;">
+    <div class = "outin">
+    
+    <h3>Out going alternatives</h3>
+    <div id = "outgoing">
+    </div>
+    
+    <h3>Going home alternatives</h3>
+    <div id = "ingoing">
+    </div>
+    
+    </div>
+    
+    <div class = "outin">
+        <textarea readonly id="pathinfo" cols="60" rows="10"></textarea>
+    </div>
 </div>
-<h3>Going home alternatives</h3>
-<div id = "ingoing">
-</div>
-<textarea id="pathinfo" cols="60" rows="10"></textarea>
+
 <script src = "data.js"></script>
 <script src = "service_Id.js"></script>
 <script src = "stopsData.js"></script>
