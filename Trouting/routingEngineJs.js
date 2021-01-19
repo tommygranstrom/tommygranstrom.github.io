@@ -131,6 +131,8 @@ class Graph{
         this.maxnPaths = 0;
         this.keepSearch = true;
         this.calls = 0;
+
+        this.firstDep = [];
     }
 
     checkServId(date,servId) {
@@ -207,16 +209,21 @@ class Graph{
         
         if(atNode == destination){
             this.foundPaths = this.foundPaths +1;
-            this.calculatedPaths.push(Object.assign([], path));
+            this.calculatedPaths.push(Object.assign([],path));
+            this.firstDep.push(path[0].depTime);
             if (this.foundPaths == 200){
-                
                 this.keepSearch = false;
             }
+
+            // console.log("---");
+            // console.log(path[0].node + " to " + path[path.length-1].node);
+            // console.log(this.calculatedPaths[this.foundPaths-1][0].depTime + " - "+ path[path.length-1].arrTime);
+            // console.log("---");
             
-        }else if(this.countUnique(routes)<this.maxTransfers){
+        }else if(this.countUnique(routes)<this.maxTransfers && atNode!=destination){
             var tmp = this.getOkChilds(atNode,goTime,routes,tripId,date);
             for(var i = 0;i<tmp.length;i++){
-                if(visited[parseInt(stops[tmp[i][0]]['idxId'])]==false && this.keepSearch == true){
+                if(visited[parseInt(stops[tmp[i][0]]['idxId'])]==false && this.keepSearch == true){ 
                     path[path.length-1].depTime = tmp[i][3];
                     var nBef = this.foundPaths;
                     this.allPathsUtil(stops[tmp[i][0]]['idxId'],destination,tmp[i][4],tmp[i][1],tmp[i][2],path,visited,date,routes);
@@ -235,7 +242,7 @@ class Graph{
     allPaths(start,destination,date,goTime,lastTime,maxT,nPaths){
         this.maxnPaths = nPaths;
         this.maxTransfers = maxT;
-        var path = new Array();
+        var path = [];
         var visited = new Array();
         for(var i = 0;i<this.nStops;i++){
             visited.push(false);
@@ -245,6 +252,7 @@ class Graph{
         var t0 = new Date().getTime();
         this.allPathsUtil(start,destination,goTime,"","",path,visited,date,routes);
         var t1 = new Date().getTime();
+
         console.log(start);
         console.log(" to ");
         console.log(destination);
@@ -257,8 +265,6 @@ class Graph{
 
 
 function startSearching(){
-    //document.getElementById("outPutFieldH").value ="";
-    //document.getElementById("outPutField").value ="";
     var pathIdx = 0;
     calcPats = [];
     while (document.getElementById("outgoing").firstChild) {
@@ -271,10 +277,6 @@ function startSearching(){
     var g2 = new Graph();
     if(destValid==true){
         if(validTime==true){
-            // console.log("Ready to search from ")
-            // console.log(startNodeIdx);
-            // console.log(" to ");
-            // console.log(endNodeIdx);
             var startGoTime = document.getElementById("goTime").value;
             var endGoTime =  document.getElementById("arrTime").value;
             var goDate =  document.getElementById("goDate").value;
@@ -285,13 +287,13 @@ function startSearching(){
                var tmpDiv = document.createElement("div");
                var tmpB = document.createElement("button");
                tmpB.className = "pathbutton";
-               pt = g.calculatedPaths[j];
+               var pt = g.calculatedPaths[j];
                calcPats.push(pt);
                tmpB.value = pathIdx;
                tmpB.onclick = function(){dispPath(this.value)};
                pathIdx = pathIdx+1;
                tmpB.innerHTML += g.patReq[pt[0].node]['txtId'] + " - " + g.patReq[pt[pt.length-1].node]['txtId']+"\n";
-               tmpB.innerHTML += pt[0].depTime + " - " + pt[pt.length-1].arrTime + "\n";
+               tmpB.innerHTML += g.firstDep[j] + " - " + pt[pt.length-1].arrTime + "\n";
                tmpDiv.appendChild(tmpB);
                document.getElementById("outgoing").appendChild(tmpDiv);
             }
@@ -310,7 +312,7 @@ function startSearching(){
                     tmpB.onclick = function(){dispPath(this.value)};
                     pathIdx = pathIdx+1;
                     tmpB.innerHTML += g2.patReq[pt[0].node]['txtId'] + " - " + g2.patReq[pt[pt.length-1].node]['txtId']+"\n";
-                    tmpB.innerHTML += pt[0].depTime + " - " + pt[pt.length-1].arrTime + "\n";
+                    tmpB.innerHTML += g2.firstDep[j] + " - " + pt[pt.length-1].arrTime + "\n";
                     tmpDiv.appendChild(tmpB);
                     document.getElementById("ingoing").appendChild(tmpDiv);   
         }
