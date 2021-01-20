@@ -2,7 +2,6 @@
     background-color: rgb(54, 54, 54);
     height: 50;
     width:auto;
-    
 }
 #topTextDiv{
     float: left;
@@ -28,6 +27,7 @@ height: 350;
 width: 800;
 resize: none;
 font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+outline: none;
 }
 
 #searchField{
@@ -44,6 +44,7 @@ font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans
     color: rgb(255, 255, 255);
     border-radius: 6px;
     border-color:  rgb(0, 132, 255);
+    outline: none;
 }
 #sumButton:hover{
     background-color: rgb(89, 175, 255);
@@ -59,6 +60,7 @@ font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans
     resize: none;
     height:150px;
     width: 600;
+    outline: none;
 }
 label{
     padding-left: 3;
