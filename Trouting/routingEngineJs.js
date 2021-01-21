@@ -23,8 +23,8 @@ function dispPath(ele){
     if(0<calcPats.length){
         var pathString = "";
         pt = calcPats[ele];
-            for(var i = 0;i<pt.length;i++){
-                pathString = pathString + data[pt[i].node]['txtId'] + " "+pt[i].arrTime+" "+pt[i].depTime+"\n";
+            for(var i = 0;i<Object.keys(pt).length;i++){
+                pathString = pathString + data[pt[i]['node']]['txtId'] + " "+pt[i]['arrTime']+" "+pt[i]['depTime']+"\n";
             }
         if(document.getElementById("pathinfo").value == pathString){
             document.getElementById("pathinfo").value = "";
@@ -126,7 +126,7 @@ class Graph{
         this.dates = dates;
         this.stops = stops;
         this.patReq = data;
-        this.calculatedPaths = [];
+        this.calculatedPaths = {};
         this.maxTransfers = 0;
         this.maxnPaths = 0;
         this.keepSearch = true;
@@ -208,16 +208,21 @@ class Graph{
         routes.push(routeId);
         
         if(atNode == destination){
+            var ttt = {};
+            //console.log("---");
+            for(var i = 0; i<path.length;i++){
+                ttt[i] = {'node':path[i].node,'arrTime':path[i].arrTime,'depTime':path[i].depTime};
+            }
+            this.calculatedPaths[this.foundPaths] = JSON.parse(JSON.stringify(ttt));
             this.foundPaths = this.foundPaths +1;
-            this.calculatedPaths.push(Object.assign([],path));
-            this.firstDep.push(path[0].depTime);
+            
             if (this.foundPaths == 200){
                 this.keepSearch = false;
             }
-
-            // console.log("---");
+            
+            //console.log(JSON.stringify(ttt));
             // console.log(path[0].node + " to " + path[path.length-1].node);
-            // console.log(this.calculatedPaths[this.foundPaths-1][0].depTime + " - "+ path[path.length-1].arrTime);
+            // console.log(path[0].depTime + " - "+ path[path.length-1].arrTime);
             // console.log("---");
             
         }else if(this.countUnique(routes)<this.maxTransfers && atNode!=destination){
@@ -283,17 +288,18 @@ function startSearching(){
             var maxTransfers = document.getElementById("maxTrc").value;
             var maxnPaths = 200;
             g.allPaths(startNodeIdx,endNodeIdx,goDate,startGoTime,endGoTime,maxTransfers,maxnPaths)
-            for(var j = 0;j<g.calculatedPaths.length;j++){
+            for(var j = 0;j<g.foundPaths;j++){
                var tmpDiv = document.createElement("div");
                var tmpB = document.createElement("button");
                tmpB.className = "pathbutton";
                var pt = g.calculatedPaths[j];
+               var ptL = Object.keys(pt).length
                calcPats.push(pt);
                tmpB.value = pathIdx;
                tmpB.onclick = function(){dispPath(this.value)};
                pathIdx = pathIdx+1;
-               tmpB.innerHTML += g.patReq[pt[0].node]['txtId'] + " - " + g.patReq[pt[pt.length-1].node]['txtId']+"\n";
-               tmpB.innerHTML += g.firstDep[j] + " - " + pt[pt.length-1].arrTime + "\n";
+               tmpB.innerHTML += g.patReq[pt[0]['node']]['txtId'] + " - " + g.patReq[pt[ptL-1]['node']]['txtId']+"\n";
+               tmpB.innerHTML += pt[0]['depTime'] + " - " + pt[ptL-1]['arrTime'] + "\n";
                tmpDiv.appendChild(tmpB);
                document.getElementById("outgoing").appendChild(tmpDiv);
             }
@@ -302,17 +308,18 @@ function startSearching(){
             startGoTime = document.getElementById("goBackTime").value;
             endGoTime =  document.getElementById("arrTimeHome").value;
             g2.allPaths(endNodeIdx,startNodeIdx,goDate,startGoTime,endGoTime,maxTransfers,maxnPaths)
-            for(var j = 0;j<g2.calculatedPaths.length;j++){
+            for(var j = 0;j<g2.foundPaths;j++){
                     var tmpDiv = document.createElement("div");
                     var tmpB = document.createElement("button");
                     tmpB.className = "pathbutton";
                     pt = g2.calculatedPaths[j];
+                    var ptL = Object.keys(pt).length
                     calcPats.push(pt);
                     tmpB.value = pathIdx;
                     tmpB.onclick = function(){dispPath(this.value)};
                     pathIdx = pathIdx+1;
-                    tmpB.innerHTML += g2.patReq[pt[0].node]['txtId'] + " - " + g2.patReq[pt[pt.length-1].node]['txtId']+"\n";
-                    tmpB.innerHTML += g2.firstDep[j] + " - " + pt[pt.length-1].arrTime + "\n";
+                    tmpB.innerHTML += g2.patReq[pt[0]['node']]['txtId'] + " - " + g2.patReq[pt[ptL-1]['node']]['txtId']+"\n";
+                    tmpB.innerHTML += pt[0]['depTime'] + " - " + pt[ptL-1]['arrTime'] + "\n";
                     tmpDiv.appendChild(tmpB);
                     document.getElementById("ingoing").appendChild(tmpDiv);   
         }
@@ -326,5 +333,4 @@ function startSearching(){
         appendToSpecs("Check start and end stop");
     }
     //g.allPaths(start,stop,goDate,startTime,endTime,maxTransfers,maxnPaths)
-    console.log();
 }
