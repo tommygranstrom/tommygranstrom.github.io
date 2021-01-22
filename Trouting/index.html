@@ -2,8 +2,10 @@
 <header>
     <title>Trouting</title>
     <link rel="stylesheet" href="main.css">
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
 </header>
 <body>
+<datalist id = "datal"></datalist>
 <div class ="head">
 <h1 id = "webTitle">Traffic routing</h1>
 </div>
@@ -11,11 +13,11 @@
 <div class = "tnodes">
 <div class = "liIt">
     <label>Travel from:</label></br>
-    <input type="text" id = "start" value = "Norrkoping Centralstation" onchange="checkDestinations()" placeholder="idxId">
+    <input type="text" id = "start" list = "datal" onkeyup="aut(this.value)" value = "Norrkoping Centralstation" onchange="checkDestinations()" placeholder="idxId">
 </div>
 <div class = "liIt">
     <label>Travel to:</label></br>
-    <input type="text" id = "end" value = "Linkoping Centralstation" onchange="checkDestinations()" placeholder="idxId">
+    <input type="text" id = "end" list = "datal" onkeyup="aut(this.value)" value = "Linkoping Centralstation" onchange="checkDestinations()" placeholder="idxId">
 </div>
 <div class = "liIt">
     <label>Date to travel:</label>

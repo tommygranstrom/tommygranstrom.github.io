@@ -42,6 +42,28 @@ function dispPath(ele){
 
     } 
 }
+
+function aut(vall){
+    var cnt = 0;
+    document.getElementById("datal").innerHTML="";
+    if(2<vall.length){
+        var i = 0;
+        while (i<autoList.length){
+            if (vall === autoList[i].slice(0,(vall.length))){
+                var node = document.createElement("option"); 
+                var val = document.createTextNode(autoList[i]); 
+                node.appendChild(val); 
+                document.getElementById("datal").appendChild(node);
+                cnt = cnt + 1; 
+            }
+            if(cnt == 4){
+                break;
+            }
+            i = i +1;
+        }
+    }
+}
+
 function autoFill(tmpIn){
     if(2<tmpIn.length){
         var i = 0;
@@ -275,7 +297,8 @@ class Graph{
 
 function startSearching(){
     var pathIdx = 0;
-    calcPats = [];
+    calcPats = new Array();
+    shortCalcPats = new Array();
     while (document.getElementById("outgoing").firstChild) {
         document.getElementById("outgoing").removeChild(document.getElementById("outgoing").lastChild);
     }
