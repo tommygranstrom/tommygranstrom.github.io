@@ -8,6 +8,7 @@
             <div id ="topTextDiv">
                 <text id = "topText">Text summarization</text>
             </div>
+            <input list="languages" autocomplete="off" placeholder = "Language"name="browser" id="language" onchange="setStopWords(this.value)">
         </div>
         </br>
         <div id = "boddiv">
@@ -25,6 +26,12 @@
                 <textarea readonly id="summary"></textarea>
             </div>
         </div>
+        <datalist id = "languages">
+            <option value="English">
+            <option value="Swedish">
+            <option value="German">
+            <option value="Spanish">    
+        </datalist>
         <script src = "stopWords.js"></script>
         <script src = "vectorizer.js"></script>
         <script src = "main.js"></script>

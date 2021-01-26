@@ -1,8 +1,8 @@
 class Vectorizer{
     isNotStopWord(param) {
         var i = 0;
-        while(i<englishStopWords.length){
-            if(param === englishStopWords[i]){
+        while(i<stopWords.length){
+            if(param === stopWords[i]){
                 return false;
             }
             i = i+1;
