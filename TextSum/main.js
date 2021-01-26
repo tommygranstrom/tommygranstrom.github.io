@@ -1,4 +1,3 @@
-
 function appToSum(val){
     document.getElementById("summary").value += val;
 }
@@ -9,5 +8,6 @@ function clearSum(){
 
 function onSummarize(){
     clearSum();
-    appToSum("Summarize function coming");
+    var vec = new Vectorizer(document.getElementById("txtin").value,3);
+    appToSum(vec.summary);
 }
