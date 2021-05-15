@@ -1,0 +1,52 @@
+@font-face {
+    font-family: "Fun Party";
+    src: url("fonts/fun_party/Fun Party.ttf");
+  }
+
+* {
+    background-color:#A8F3F5;
+}
+h1{
+    margin-top: 20vh;
+    font-family: "Fun Party";
+    text-align: center;
+    font-size: 10vh;
+    color: black;
+
+}
+
+button{
+    position: relative;
+    left: 37.4%;
+    display:inline-block;
+    padding:0.46em 1.6em;
+    border:0.1em solid #000000;
+    margin:0 0.2em 0.2em 0;
+    border-radius:0.12em;
+    box-sizing: border-box;
+    text-decoration:none;
+    font-family:"Fun Party";
+    font-weight:300;
+    font-size: 1.5vw;
+    color:#000000;
+    text-shadow: 0 0.04em 0.04em rgba(0,0,0,0.35);
+    background-color:#FFFFFF;
+    text-align:center;
+    transition: all 0.15s;
+    width: 25vw;
+    height: 5vh;
+}
+
+button:hover{
+    text-shadow: 0 0 2em rgba(255,255,255,1);
+    color:#81C9B7;
+    border-color:#81C9B7;
+}
+
+textarea {
+    width: 25vw;
+    height: 5vh;
+    display: block;
+    margin-left : auto;
+    margin-right : auto;
+}
